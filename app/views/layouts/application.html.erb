@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LearnRails</title>
+<title><%= content_for?(:title) ? yield(:title) : "Learning Rails" %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="<%= content_for?(:description) ?
+yield(:description) : "Learning Rails" %>">
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <!-- 루비코드여도 레일스API에 속한것으로 레일스 애플리케이션에서만 발견됨. -->
 </head>
 <body>
+<header class="navbar navbar-fixed-top">
+	<nav class="navbar-inner">
+		<div class="container">
+			<%= render 'layouts/navigation' %>
+		</div>
+	</nav>
+</header>
+<main role="main">
+	<div id="container">
+		<div class="content">
+			<div class="row">
+			<div class="span12">
+				<%= render 'layouts/messages' %>
+				<%= yield %>
+			</div>
+		</div>
+		<footer>
+			
+		</footer>
+		</div><!-- .content -->
+	</div><!-- .container -->
 
-<%= yield %>
+<!-- 
+ yield는 특정한 controller와 action의 뷰파일을 대체하는 역할을 한다.
+ 또한, content_for 메소드는 레이아웃이 사이드바, 푸터같은 특정한 구획을 가질때 유용.
 
+ 예를 들면,
+ <div class="main">
+ <%= yield %>
+ </div>
+ <div class="sidebar">
+ <%= yield :sidebar %>
+ </div>
+
+ <% content_for :sidebar do %> 
+ <h3>Contact Info</h3> 
+ <p>Email: me@example.com</p>
+ <% end %> 
+ <h3>Main</h3> 
+ <p>Welcome!</p>
+
+-->
+</main>
 </body>
 </html>
